@@ -6,8 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class UavDockingManagementSystemApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(UavDockingManagementSystemApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(UavDockingManagementSystemApplication.class, args);
+        System.out.println("welcome to the UAV Docking Management System");
 
+    }
 }
