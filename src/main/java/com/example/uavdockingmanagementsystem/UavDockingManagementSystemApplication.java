@@ -11,7 +11,8 @@ public class UavDockingManagementSystemApplication {
         System.out.println("welcome to the UAV Docking Management System");
         /*
           i need  to make first a database system to manage UAV  ,
-         simple data base  (AREA ,  UAV ID , ALLOWENCE , DOCKING STATUS, DOCKING DATE
+         simple data base  (AREA ,  UAV ID , ALLOWENCE , DOCKING STATUS, DOCKING DATE)
+          then  creat an API  to  let the manager manage the  database ,  add UAVS   , delete ,   udpdate the allowence  state .
         */
     }
 }
