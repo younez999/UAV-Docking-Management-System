@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UAV Management</title>
+</head>
+<body>
+
+<h1>UAV Management</h1>
+
+<form action="/uav/add" method="POST">
+    <label for="rfidTag">RFID Tag:</label>
+    <input type="text" id="rfidTag" name="rfidTag" required><br>
+
+    <label for="ownerName">Owner Name:</label>
+    <input type="text" id="ownerName" name="ownerName" required><br>
+
+    <label for="model">Model:</label>
+    <input type="text" id="model" name="model" required><br>
+
+    <label for="status">Status:</label>
+    <select name="status" id="status" required>
+        <option value="AUTHORIZED">Authorized</option>
+        <option value="UNAUTHORIZED">Unauthorized</option>
+    </select><br>
+
+    <button type="submit">Add UAV</button>
+</form>
+
+<h2>UAV List</h2>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>RFID Tag</th>
+        <th>Owner Name</th>
+        <th>Model</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="uav : ${uavs}">
+        <td th:text="${uav.id}"></td>
+        <td th:text="${uav.rfidTag}"></td>
+        <td th:text="${uav.ownerName}"></td>
+        <td th:text="${uav.model}"></td>
+        <td th:text="${uav.status}"></td>
+        <td>
+            <a th:href="@{/uav/delete/{id}(id=${uav.id})}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
