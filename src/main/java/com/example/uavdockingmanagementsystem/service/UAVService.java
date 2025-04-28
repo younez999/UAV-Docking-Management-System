@@ -1,8 +1,8 @@
-package service;
-import model.UAV;
+package com.example.uavdockingmanagementsystem.service;
+import com.example.uavdockingmanagementsystem.model.UAV;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repository.UAVRepository;
+import com.example.uavdockingmanagementsystem.repository.UAVRepository;
 
 import java.util.List;
 import java.util.Optional;

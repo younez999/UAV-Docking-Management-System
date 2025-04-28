@@ -1,10 +1,10 @@
-package controller;
-import model.UAV;
+package com.example.uavdockingmanagementsystem.controller;
+import com.example.uavdockingmanagementsystem.model.UAV;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import repository.UAVRepository;
+import com.example.uavdockingmanagementsystem.repository.UAVRepository;
 
 
 @Controller
