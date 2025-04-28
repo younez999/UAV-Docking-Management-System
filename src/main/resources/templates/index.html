@@ -37,6 +37,8 @@
         <th>Owner Name</th>
         <th>Model</th>
         <th>Status</th>
+        <th>Created At</th>
+        <th>Updated At</th>
         <th>Actions</th>
     </tr>
     </thead>
@@ -47,6 +49,8 @@
         <td th:text="${uav.ownerName}"></td>
         <td th:text="${uav.model}"></td>
         <td th:text="${uav.status}"></td>
+        <td th:text="${#temporals.format(uav.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+        <td th:text="${#temporals.format(uav.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
         <td>
             <a th:href="@{/uav/delete/{id}(id=${uav.id})}">Delete</a>
         </td>
