@@ -10,9 +10,7 @@ public class UavDockingManagementSystemApplication {
         SpringApplication.run(UavDockingManagementSystemApplication.class, args);
         System.out.println("welcome to the UAV Docking Management System");
         /*
-          i need  to make first a database system to manage UAV  ,
-         simple data base  (AREA ,  UAV ID , ALLOWENCE , DOCKING STATUS, DOCKING DATE)
-          then  creat an API  to  let the manager manage the  database ,  add UAVS   , delete ,   udpdate the allowence  state .
+         futue work is to  add the  region  option to the UI  (ALREADY MADE IN DATABASE )
         */
     }
 }

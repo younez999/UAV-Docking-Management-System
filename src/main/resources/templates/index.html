@@ -4,6 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UAV Management</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .authorized {
+            color: green;
+            font-weight: bold;
+        }
+        .unauthorized {
+            color: red;
+            font-weight: bold;
+        }
+        a {
+            text-decoration: none;
+            background-color: #4CAF50;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+        a:hover {
+            background-color: #45a049;
+        }
+        a[href*="delete"] {
+            background-color: #f44336;
+        }
+        a[href*="delete"]:hover {
+            background-color: #d32f2f;
+        }
+        a[href*="update-status"] {
+            background-color: #2196F3;
+        }
+        a[href*="update-status"]:hover {
+            background-color: #0b7dda;
+        }
+    </style>
 </head>
 <body>
 
@@ -48,10 +93,13 @@
         <td th:text="${uav.rfidTag}"></td>
         <td th:text="${uav.ownerName}"></td>
         <td th:text="${uav.model}"></td>
-        <td th:text="${uav.status}"></td>
+        <td>
+            <span th:text="${uav.status}" th:class="${uav.status == T(com.example.uavdockingmanagementsystem.model.UAV.Status).AUTHORIZED ? 'authorized' : 'unauthorized'}"></span>
+        </td>
         <td th:text="${#temporals.format(uav.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
         <td th:text="${#temporals.format(uav.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
         <td>
+            <a th:href="@{/uav/update-status/{id}(id=${uav.id})}">Toggle Status</a> |
             <a th:href="@{/uav/delete/{id}(id=${uav.id})}">Delete</a>
         </td>
     </tr>

@@ -34,6 +34,21 @@ public class UAVController {
         uavRepository.deleteById(id);
         return "redirect:/uav/";
     }
+    
+    // Update UAV status
+    @GetMapping("/update-status/{id}")
+    public String updateUAVStatus(@PathVariable int id) {
+        UAV uav = uavRepository.findById(id).orElseThrow();
+        // Toggle status between AUTHORIZED and UNAUTHORIZED
+        if (uav.getStatus() == UAV.Status.AUTHORIZED) {
+            uav.setStatus(UAV.Status.UNAUTHORIZED);
+        } else {
+            uav.setStatus(UAV.Status.AUTHORIZED);
+        }
+        // The updatedAt field will be automatically updated via @PreUpdate
+        uavRepository.save(uav);
+        return "redirect:/uav/";
+    }
 }
 
 
