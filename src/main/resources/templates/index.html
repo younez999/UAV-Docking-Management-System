@@ -58,7 +58,17 @@
 
 <h1>UAV Management</h1>
 
-<form action="/uav/add" method="POST">
+<!-- Debug information for regions -->
+<div style="border: 1px solid #cc0000; padding: 10px; margin-bottom: 20px; background-color: #fff0f0;">
+    <h3>Available Regions</h3>
+    <p th:if="${allRegions == null}"><strong style="color: red;">Error: allRegions model attribute is null</strong></p>
+    <p th:if="${allRegions != null && #lists.isEmpty(allRegions)}"><strong style="color: red;">No regions available in the system. Check database!</strong></p>
+    <ul th:if="${allRegions != null && !#lists.isEmpty(allRegions)}">
+        <li th:each="region : ${allRegions}" th:text="${region.regionName + ' (ID: ' + region.id + ')'}"></li>
+    </ul>
+</div>
+
+<form action="/uav/add" method="POST" th:action="@{/uav/add}">
     <label for="rfidTag">RFID Tag:</label>
     <input type="text" id="rfidTag" name="rfidTag" required><br>
 
@@ -74,6 +84,16 @@
         <option value="UNAUTHORIZED">Unauthorized</option>
     </select><br>
 
+    <label for="regionIds">Regions:</label>
+    <select name="regionIds" id="regionIds" multiple style="width: 200px; height: 100px;">
+        <option th:if="${allRegions == null || #lists.isEmpty(allRegions)}" disabled>No regions available</option>
+        <option th:unless="${allRegions == null || #lists.isEmpty(allRegions)}" 
+                th:each="region : ${allRegions}" 
+                th:value="${region.id}" 
+                th:text="${region.regionName}"></option>
+    </select>
+    <small>(Hold Ctrl/Cmd key to select multiple regions)</small><br>
+    
     <button type="submit">Add UAV</button>
 </form>
 

@@ -19,7 +19,7 @@ public class UAV {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(
             name = "uav_regions",
             joinColumns = @JoinColumn(name = "uav_id"),

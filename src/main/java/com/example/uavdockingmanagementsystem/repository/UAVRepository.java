@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface UAVRepository extends JpaRepository<UAV, Integer> {
-    @Query("SELECT u FROM UAV u LEFT JOIN FETCH u.regions")
+    @Query("SELECT DISTINCT u FROM UAV u LEFT JOIN FETCH u.regions")
     List<UAV> findAllWithRegions();
 }
 
