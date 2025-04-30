@@ -6,22 +6,12 @@ import com.example.uavdockingmanagementsystem.repository.UAVRepository;
 import com.example.uavdockingmanagementsystem.service.RegionService;
 import com.example.uavdockingmanagementsystem.service.UAVService;
 import jakarta.annotation.PostConstruct;
-import com.example.uavdockingmanagementsystem.model.Region;
 import com.example.uavdockingmanagementsystem.model.UAV;
-import com.example.uavdockingmanagementsystem.repository.RegionRepository;
-import com.example.uavdockingmanagementsystem.repository.UAVRepository;
-import com.example.uavdockingmanagementsystem.service.RegionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import jakarta.annotation.PostConstruct;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import java.util.List;
 
 @Controller
@@ -110,30 +100,25 @@ public class RegionController {
 
     @PostMapping("/uav/{uavId}/remove-region")
     public String removeRegionFromUAV(@PathVariable int uavId, @RequestParam int regionId) {
-            UAV uav = uavRepository.findById(uavId)
-                    .orElseThrow(() -> new IllegalArgumentException("Invalid UAV ID: " + uavId));
-            
-            Region region = regionRepository.findById(regionId)
-                    .orElseThrow(() -> new IllegalArgumentException("Invalid Region ID: " + regionId));
-            
-            uav.getRegions().remove(region);
-            uavRepository.save(uav);
-            
-        return "redirect:/";
+        return getString(uavId, regionId);
     }
 
     // REST endpoint for direct removal without form
     @GetMapping("/uav/{uavId}/remove-region/{regionId}")
     public String quickRemoveRegion(@PathVariable int uavId, @PathVariable int regionId) {
+        return getString(uavId, regionId);
+    }
+
+    private String getString(@PathVariable int uavId, @PathVariable int regionId) {
         UAV uav = uavRepository.findById(uavId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid UAV ID: " + uavId));
-        
+
         Region region = regionRepository.findById(regionId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid Region ID: " + regionId));
-        
+
         uav.getRegions().remove(region);
         uavRepository.save(uav);
-        
+
         return "redirect:/";
     }
 }

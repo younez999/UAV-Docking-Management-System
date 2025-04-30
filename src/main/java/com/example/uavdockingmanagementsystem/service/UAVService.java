@@ -40,6 +40,43 @@ public class UAVService {
     }
     
     /**
+     * Get UAV by RFID tag
+     */
+    public Optional<UAV> getUAVByRfidTag(String rfidTag) {
+        return uavRepository.findByRfidTag(rfidTag);
+    }
+    
+    /**
+     * Check if a UAV has access to a specific region
+     * Returns a string with the result of the validation
+     */
+    public String checkUAVRegionAccess(String rfidTag, String regionName) {
+        // Check if UAV exists
+        Optional<UAV> uavOpt = uavRepository.findByRfidTag(rfidTag);
+        if (uavOpt.isEmpty()) {
+            return "UAV with RFID " + rfidTag + " not found";
+        }
+        
+        UAV uav = uavOpt.get();
+        
+        // Check if UAV is authorized
+        if (uav.getStatus() != UAV.Status.AUTHORIZED) {
+            return "UAV is not authorized";
+        }
+        
+        // Check if region is assigned to the UAV
+        boolean hasRegion = uav.getRegions().stream()
+                .anyMatch(region -> region.getRegionName().equalsIgnoreCase(regionName));
+                
+        if (!hasRegion) {
+            return "UAV is not authorized for region: " + regionName;
+        }
+        
+        // All checks passed
+        return "OPEN THE DOOR";
+    }
+    
+    /**
      * Add a region to a specific UAV
      */
     @Transactional
