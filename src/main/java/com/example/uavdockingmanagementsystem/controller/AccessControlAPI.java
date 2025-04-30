@@ -42,6 +42,9 @@ public class AccessControlAPI {
         System.out.println("✅ VALIDATION RESULT: " + result);
         System.out.println("==================================================\n");
         
+        // Log that we're sending the response back to ESP32
+        System.out.println("📤 SENDING RESPONSE TO ESP32: " + result);
+        
         return result;
     }
 }
