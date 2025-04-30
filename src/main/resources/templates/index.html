@@ -125,9 +125,14 @@
             <span th:if="${uav.regions == null || #lists.isEmpty(uav.regions)}">No regions assigned</span>
             <span th:unless="${uav.regions == null || #lists.isEmpty(uav.regions)}">
                 <span th:each="region, iterStat : ${uav.regions}">
-                    <span th:text="${region.regionName}"></span><span th:if="${!iterStat.last}">, </span>
+                    <span th:text="${region.regionName}"></span>
+                    <a th:href="@{/uav/{uavId}/remove-region/{regionId}(uavId=${uav.id},regionId=${region.id})}" 
+                       style="background-color: #f44336; padding: 1px 4px; font-size: 0.8em; margin-left: 2px;">×</a>
+                    <span th:if="${!iterStat.last}">, </span>
                 </span>
             </span>
+            <a th:href="@{/uav/{id}/add-region(id=${uav.id})}" 
+               style="background-color: #4CAF50; padding: 1px 4px; font-size: 0.8em; margin-left: 5px;">+</a>
         </td>
         <td th:text="${#temporals.format(uav.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
         <td th:text="${#temporals.format(uav.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
