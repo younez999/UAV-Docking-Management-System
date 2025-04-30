@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class RegionService {
@@ -82,58 +81,6 @@ public class RegionService {
         } else {
             System.out.println("Failed to delete region " + id + ": region not found");
         }
-    }
-
-    /**
-     * Add a region to a specific UAV
-     */
-    @Transactional
-    public UAV addRegionToUAV(int uavId, int regionId) {
-        Optional<UAV> uavOpt = uavRepository.findById(uavId);
-        Optional<Region> regionOpt = regionRepository.findById(regionId);
-
-        if (uavOpt.isPresent() && regionOpt.isPresent()) {
-            UAV uav = uavOpt.get();
-            Region region = regionOpt.get();
-
-            // Add the region to the UAV's regions
-            uav.getRegions().add(region);
-            UAV updatedUAV = uavRepository.save(uav);
-            System.out.println("Added region " + region.getRegionName() + " to UAV " + uav.getRfidTag());
-            return updatedUAV;
-        }
-
-        System.out.println("Failed to add region " + regionId + " to UAV " + uavId + ": one or both not found");
-        return null;
-    }
-
-    /**
-     * Remove a region from a specific UAV
-     */
-    @Transactional
-    public UAV removeRegionFromUAV(int uavId, int regionId) {
-        Optional<UAV> uavOpt = uavRepository.findById(uavId);
-        Optional<Region> regionOpt = regionRepository.findById(regionId);
-
-        if (uavOpt.isPresent() && regionOpt.isPresent()) {
-            UAV uav = uavOpt.get();
-            Region region = regionOpt.get();
-
-            // Remove the region from the UAV's regions
-            boolean removed = uav.getRegions().remove(region);
-            UAV updatedUAV = uavRepository.save(uav);
-
-            if (removed) {
-                System.out.println("Removed region " + region.getRegionName() + " from UAV " + uav.getRfidTag());
-            } else {
-                System.out.println("Region " + region.getRegionName() + " was not assigned to UAV " + uav.getRfidTag());
-            }
-
-            return updatedUAV;
-        }
-
-        System.out.println("Failed to remove region " + regionId + " from UAV " + uavId + ": one or both not found");
-        return null;
     }
 
     /**

@@ -4,12 +4,23 @@ import com.example.uavdockingmanagementsystem.model.Region;
 import com.example.uavdockingmanagementsystem.repository.RegionRepository;
 import com.example.uavdockingmanagementsystem.repository.UAVRepository;
 import com.example.uavdockingmanagementsystem.service.RegionService;
-import com.example.uavdockingmanagementsystem.service.UAVRegionService;
+import com.example.uavdockingmanagementsystem.service.UAVService;
 import jakarta.annotation.PostConstruct;
+import com.example.uavdockingmanagementsystem.model.Region;
+import com.example.uavdockingmanagementsystem.model.UAV;
+import com.example.uavdockingmanagementsystem.repository.RegionRepository;
+import com.example.uavdockingmanagementsystem.repository.UAVRepository;
+import com.example.uavdockingmanagementsystem.service.RegionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import jakarta.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import java.util.List;
 
@@ -24,9 +35,9 @@ public class RegionController {
 
     @Autowired
     private RegionService regionService;
-
+    
     @Autowired
-    private UAVRegionService uavRegionService;
+    private UAVService uavService;
 
     @PostConstruct
     public void init() {
@@ -63,7 +74,7 @@ public class RegionController {
     @GetMapping("/uav/{uavId}/add-region")
     public String showAddRegionForm(@PathVariable int uavId, Model model) {
         // Get available regions (not already assigned to this UAV)
-        List<Region> availableRegions = uavRegionService.getUnassignedRegionsForUAV(uavId);
+        List<Region> availableRegions = uavService.getUnassignedRegionsForUAV(uavId);
         model.addAttribute("availableRegions", availableRegions);
         model.addAttribute("uavId", uavId);
         return "add-region";
@@ -71,14 +82,27 @@ public class RegionController {
 
     @PostMapping("/uav/{uavId}/add-region")
     public String addRegionToUAV(@PathVariable int uavId, @RequestParam int regionId) {
-        uavRegionService.addRegionToUAV(uavId, regionId);
+        UAV uav = uavRepository.findById(uavId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid UAV ID: " + uavId));
+        
+        Region region = regionRepository.findById(regionId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid Region ID: " + regionId));
+        
+        uav.getRegions().add(region);
+        uavRepository.save(uav);
+        
         return "redirect:/";
     }
 
     @GetMapping("/uav/{uavId}/remove-region")
     public String showRemoveRegionForm(@PathVariable int uavId, Model model) {
         // Get regions assigned to this UAV
-        List<Region> assignedRegions = uavRegionService.getAssignedRegionsForUAV(uavId);
+        UAV uav = uavRepository.findById(uavId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid UAV ID: " + uavId));
+        
+        // Get assigned regions for this UAV
+        List<Region> assignedRegions = new ArrayList<>(uav.getRegions());
+        
         model.addAttribute("assignedRegions", assignedRegions);
         model.addAttribute("uavId", uavId);
         return "remove-region";
@@ -86,14 +110,30 @@ public class RegionController {
 
     @PostMapping("/uav/{uavId}/remove-region")
     public String removeRegionFromUAV(@PathVariable int uavId, @RequestParam int regionId) {
-        uavRegionService.removeRegionFromUAV(uavId, regionId);
+            UAV uav = uavRepository.findById(uavId)
+                    .orElseThrow(() -> new IllegalArgumentException("Invalid UAV ID: " + uavId));
+            
+            Region region = regionRepository.findById(regionId)
+                    .orElseThrow(() -> new IllegalArgumentException("Invalid Region ID: " + regionId));
+            
+            uav.getRegions().remove(region);
+            uavRepository.save(uav);
+            
         return "redirect:/";
     }
 
     // REST endpoint for direct removal without form
     @GetMapping("/uav/{uavId}/remove-region/{regionId}")
     public String quickRemoveRegion(@PathVariable int uavId, @PathVariable int regionId) {
-        uavRegionService.removeRegionFromUAV(uavId, regionId);
+        UAV uav = uavRepository.findById(uavId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid UAV ID: " + uavId));
+        
+        Region region = regionRepository.findById(regionId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid Region ID: " + regionId));
+        
+        uav.getRegions().remove(region);
+        uavRepository.save(uav);
+        
         return "redirect:/";
     }
 }
