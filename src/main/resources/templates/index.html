@@ -17,6 +17,10 @@
         th {
             background-color: #f2f2f2;
         }
+        .regions {
+            max-width: 200px;
+            word-wrap: break-word;
+        }
         .authorized {
             color: green;
             font-weight: bold;
@@ -82,6 +86,7 @@
         <th>Owner Name</th>
         <th>Model</th>
         <th>Status</th>
+            <th>Regions</th>
         <th>Created At</th>
         <th>Updated At</th>
         <th>Actions</th>
@@ -95,6 +100,14 @@
         <td th:text="${uav.model}"></td>
         <td>
             <span th:text="${uav.status}" th:class="${uav.status == T(com.example.uavdockingmanagementsystem.model.UAV.Status).AUTHORIZED ? 'authorized' : 'unauthorized'}"></span>
+        </td>
+        <td class="regions">
+            <span th:if="${uav.regions == null || #lists.isEmpty(uav.regions)}">No regions assigned</span>
+            <span th:unless="${uav.regions == null || #lists.isEmpty(uav.regions)}">
+                <span th:each="region, iterStat : ${uav.regions}">
+                    <span th:text="${region.regionName}"></span><span th:if="${!iterStat.last}">, </span>
+                </span>
+            </span>
         </td>
         <td th:text="${#temporals.format(uav.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
         <td th:text="${#temporals.format(uav.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"></td>

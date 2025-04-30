@@ -1,6 +1,9 @@
 package com.example.uavdockingmanagementsystem.model;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
+
 
 @Entity
 public class UAV {
@@ -15,6 +18,14 @@ public class UAV {
 
     @Enumerated(EnumType.STRING)
     private Status status;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "uav_regions",
+            joinColumns = @JoinColumn(name = "uav_id"),
+            inverseJoinColumns = @JoinColumn(name = "region_id")
+    )
+    private Set<Region> regions = new HashSet<>();
 
     @Column(updatable = false)
     private LocalDateTime createdAt;
@@ -88,6 +99,14 @@ public class UAV {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Set<Region> getRegions() {
+        return regions;
+    }
+
+    public void setRegions(Set<Region> regions) {
+        this.regions = regions;
     }
 
     public enum Status {

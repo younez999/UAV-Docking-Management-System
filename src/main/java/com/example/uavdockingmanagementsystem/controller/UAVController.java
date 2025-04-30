@@ -1,11 +1,11 @@
 package com.example.uavdockingmanagementsystem.controller;
+import com.example.uavdockingmanagementsystem.model.Region;
 import com.example.uavdockingmanagementsystem.model.UAV;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.example.uavdockingmanagementsystem.repository.UAVRepository;
-
 
 @Controller
 @RequestMapping("/uav")
@@ -17,7 +17,7 @@ public class UAVController {
     // Show all UAVs
     @GetMapping("/")
     public String getAllUAVs(Model model) {
-        model.addAttribute("uavs", uavRepository.findAll());
+        model.addAttribute("uavs", uavRepository.findAllWithRegions());
         return "index";  // Ensure "index.html" is in the "src/main/resources/templates" directory
     }
 
