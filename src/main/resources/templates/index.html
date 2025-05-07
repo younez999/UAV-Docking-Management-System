@@ -5,11 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UAV Docking Management System</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
-<div class="container">
-    <h1><i class="fas fa-drone"></i> UAV Docking Management System</h1>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <!-- Ensure Font Awesome is loaded properly -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        /* Ensure proper icon display */
+        .fas {
+            display: inline-block !important;
+            width: auto !important;
+            height: auto !important;
+            vertical-align: middle;
+        }
+        .form-icon .fas {
+            font-size: 1rem;
+        }
+        /* Add a fallback for missing drone icon */
+        .fa-drone:before {
+            content: "\f72e"; /* Using helicopter icon as fallback */
+        }
+    </style>
+    </head>
+    <body>
+    <div class="container">
+    <h1><i class="fas fa-plane"></i> UAV Docking Management System</h1>
 
     <!-- Debug information for regions -->
     <div class="debug-box">
@@ -25,40 +43,40 @@
     
     <div class="form-card hover-card">
         <div class="form-card-header">
-            <i class="fas fa-drone"></i> Quick UAV Registration
+            <i class="fas fa-helicopter"></i> Quick UAV Registration
         </div>
         <div class="form-card-body">
             <form action="/uav/add" method="POST" th:action="@{/uav/add}">
                 <div class="form-row">
                     <div class="form-col">
+                        <label for="rfidTag" class="required">RFID Tag</label>
                         <div class="form-icon">
                             <i class="fas fa-tag"></i>
                         </div>
-                        <label for="rfidTag" class="required">RFID Tag</label>
                         <input type="text" id="rfidTag" name="rfidTag" required placeholder="Enter RFID tag">
                     </div>
-    
+                    
                     <div class="form-col">
+                        <label for="ownerName" class="required">Owner Name</label>
                         <div class="form-icon">
                             <i class="fas fa-user"></i>
                         </div>
-                        <label for="ownerName" class="required">Owner Name</label>
                         <input type="text" id="ownerName" name="ownerName" required placeholder="Enter owner's name">
                     </div>
-    
+                    
                     <div class="form-col">
+                        <label for="model" class="required">Model</label>
                         <div class="form-icon">
                             <i class="fas fa-helicopter"></i>
                         </div>
-                        <label for="model" class="required">Model</label>
                         <input type="text" id="model" name="model" required placeholder="Enter UAV model">
                     </div>
-    
+                    
                     <div class="form-col">
+                        <label for="status" class="required">Status</label>
                         <div class="form-icon">
                             <i class="fas fa-shield-alt"></i>
                         </div>
-                        <label for="status" class="required">Status</label>
                         <select name="status" id="status" required>
                             <option value="AUTHORIZED">Authorized</option>
                             <option value="UNAUTHORIZED">Unauthorized</option>
@@ -68,10 +86,10 @@
                 
                 <div class="form-row">
                     <div class="form-col" style="flex: 3;">
+                        <label for="regionIds">Regions (Hold Ctrl/Cmd to select multiple)</label>
                         <div class="form-icon">
                             <i class="fas fa-map-marker-alt"></i>
                         </div>
-                        <label for="regionIds">Regions (Hold Ctrl/Cmd to select multiple)</label>
                         <select name="regionIds" id="regionIds" multiple style="height: 70px;">
                             <option th:if="${allRegions == null || #lists.isEmpty(allRegions)}" disabled>No regions available</option>
                             <option th:unless="${allRegions == null || #lists.isEmpty(allRegions)}" 
@@ -96,15 +114,15 @@
         <table>
             <thead>
             <tr>
-                <th>ID</th>
-                <th>RFID Tag</th>
-                <th>Owner Name</th>
-                <th>Model</th>
-                <th>Status</th>
-                <th>Regions</th>
-                <th>Created At</th>
-                <th>Updated At</th>
-                <th>Actions</th>
+                <th><i class="fas fa-id-card"></i> ID</th>
+                <th><i class="fas fa-tag"></i> RFID Tag</th>
+                <th><i class="fas fa-user"></i> Owner Name</th>
+                <th><i class="fas fa-helicopter"></i> Model</th>
+                <th><i class="fas fa-shield-alt"></i> Status</th>
+                <th><i class="fas fa-map-marker-alt"></i> Regions</th>
+                <th><i class="fas fa-calendar-plus"></i> Created At</th>
+                <th><i class="fas fa-calendar-check"></i> Updated At</th>
+                <th><i class="fas fa-tools"></i> Actions</th>
             </tr>
             </thead>
             <tbody>
