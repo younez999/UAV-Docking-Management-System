@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3305/uav_management_system
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: younes123
+    networks:
+      - uav-network
+
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: uav_management_system
+      MYSQL_ROOT_PASSWORD: younes123
+    ports:
+      - "3307:3308"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - uav-network
+
+networks:
+  uav-network:
+    driver: bridge
+
+volumes:
+  mysql-data:
