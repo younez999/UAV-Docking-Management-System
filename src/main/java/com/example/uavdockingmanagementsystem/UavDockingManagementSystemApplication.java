@@ -9,6 +9,8 @@ public class UavDockingManagementSystemApplication {
     public static void main(String[] args) {
         SpringApplication.run(UavDockingManagementSystemApplication.class, args);
         System.out.println("welcome to the UAV Docking Management System");
+        System.out.println("CONGRATULATIONS  FINALLY IT'S WORKING! :)");
+
 
     }
 }
