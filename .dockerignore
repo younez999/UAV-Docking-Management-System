@@ -1,0 +1,9 @@
+# Maven artefacts
+target/
+# IDE stuff
+.idea/
+# Git
+.git/
+# OS
+.DS_Store
+Thumbs.db
