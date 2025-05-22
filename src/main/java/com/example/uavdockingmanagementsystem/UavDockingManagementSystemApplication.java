@@ -10,7 +10,6 @@ public class UavDockingManagementSystemApplication {
         SpringApplication.run(UavDockingManagementSystemApplication.class, args);
         System.out.println("welcome to the UAV Docking Management System");
         System.out.println("CONGRATULATIONS  FINALLY IT'S WORKING! :)");
-        // DB  AND APP ALREADY DOCKERIZED
         // THE PROJECT  IS DEPLOYED ON  railway.com   BY THE TWO DOXKER IMAGES  APP and DB
 
         /* SPRING SECURITY IMPLEMENTATION PLAN:
