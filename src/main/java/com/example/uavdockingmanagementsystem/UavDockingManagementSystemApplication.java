@@ -10,7 +10,7 @@ public class UavDockingManagementSystemApplication {
         SpringApplication.run(UavDockingManagementSystemApplication.class, args);
         System.out.println("welcome to the UAV Docking Management System");
         System.out.println("CONGRATULATIONS  FINALLY IT'S WORKING! :)");
-        // THE PROJECT  IS DEPLOYED ON  railway.com   BY THE TWO DOXKER IMAGES  APP and DB
+        // THE PROJECT  IS DEPLOYED ON  railway.com   BY THE TWO DOCKER IMAGES  APP and DB
 
         /* SPRING SECURITY IMPLEMENTATION PLAN:
          * 1. Add Spring Security dependencies to pom.xml
