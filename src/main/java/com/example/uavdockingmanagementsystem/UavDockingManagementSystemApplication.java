@@ -11,7 +11,7 @@ public class UavDockingManagementSystemApplication {
         System.out.println("welcome to the UAV Docking Management System");
         System.out.println("CONGRATULATIONS  FINALLY IT'S WORKING! :)");
         // THE PROJECT IS DEPLOYED ON railway.com BY THE TWO DOCKER IMAGES APP and DB
-        //
+        //// THE APP IS RUNNING ON PORT 8080
 
 
 
