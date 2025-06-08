@@ -12,8 +12,13 @@ public class UavDockingManagementSystemApplication {
         System.out.println("CONGRATULATIONS  FINALLY IT'S WORKING! :)");
         // THE PROJECT IS DEPLOYED ON railway.com BY THE TWO DOCKER IMAGES APP and DB
         //// THE APP IS RUNNING ON PORT 8080
-
-
+        
+        // TODO: Future work - implement Spring Security or JWT for authentication and authorization
+        // This will enhance the system's security by providing:
+        // - User authentication
+        // - Role-based access control
+        // - Protected API endpoints
+        // - Secure token-based authentication
 
 
     }
